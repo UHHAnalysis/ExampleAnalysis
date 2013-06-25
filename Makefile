@@ -5,6 +5,8 @@ DEPDIR  = $(OBJDIR)/dep
 SRCDIR  = src
 INCDIR  = include
 
+INCLUDES += -I$(SFRAME_DIR)/NtupleWriter/include
+INCLUDES += -I$(SFRAME_DIR)/NtupleWriter
 INCLUDES += -I$(SFRAME_DIR)/SFrameTools/include
 INCLUDES += -I$(SFRAME_DIR)/SFrameTools
 INCLUDES += -I$(SFRAME_DIR)/SFrameTools/JetMETObjects/interface
