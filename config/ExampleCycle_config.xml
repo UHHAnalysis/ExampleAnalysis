@@ -9,10 +9,13 @@
 	<Library Name="libSFramePlugIns"/>
 	<Library Name="libSFrameTools"/>
 	<Library Name="libAnalysis"/>
+	<Library Name="libNtuple"/>
 	<Library Name="libExampleAnalysis"/>
 
 	<Package Name="SFrameCore.par" />
 	<Package Name="SFramePlugIns.par" />
+	<Package Name="Ntuple.par" />
+	<Package Name="SFrameTools.par" />
 	<Package Name="Analysis.par" />
 	<Package Name="ExampleAnalysis.par" />
 

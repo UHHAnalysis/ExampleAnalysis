@@ -10,6 +10,7 @@ int SETUP() {
    if( gSystem->Load( "libTree" ) == -1 ) return -1;
    if( gSystem->Load( "libHist" ) == -1 ) return -1;
    if( gSystem->Load( "libGraf" ) == -1 ) return -1;
+   if( gSystem->Load( "libNtuple" ) == -1 ) return -1;
    if( gSystem->Load( "libSFrameTools" ) == -1 ) return -1;
    if( gSystem->Load( "libAnalysis" ) == -1 ) return -1;
    if( gSystem->Load( "libExampleAnalysis" ) == -1 ) return -1;
