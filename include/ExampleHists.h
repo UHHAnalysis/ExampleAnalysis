@@ -1,14 +1,7 @@
 #ifndef ExampleHists_H
 #define ExampleHists_H
 
-// ROOT include(s):
-#include <TObject.h>
-#include <TString.h>
-#include "TH2.h"
-
-// Local include(s):
-#include "include/BaseHists.h"
-#include "include/BaseCycleContainer.h"
+#include "SFrameTools/include/BaseHists.h"
 
 /**
  *   Example class for booking and filling histograms

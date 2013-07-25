@@ -3,11 +3,7 @@
 #ifndef ExampleCycle_H
 #define ExampleCycle_H
 
-// SFrame include(s):
-#include "include/AnalysisCycle.h"
-#include "include/SelectionModules.h"
-#include "include/ExampleHists.h"
-#include "include/HypothesisHists.h"
+#include "SFrameAnalysis/include/AnalysisCycle.h"
 
 /**
  *   @short Example of an analysis cycle

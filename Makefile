@@ -5,23 +5,18 @@ DEPDIR  = $(OBJDIR)/dep
 SRCDIR  = src
 INCDIR  = include
 
-INCLUDES += -I$(SFRAME_DIR)/NtupleWriter/include
-INCLUDES += -I$(SFRAME_DIR)/NtupleWriter
-INCLUDES += -I$(SFRAME_DIR)/SFrameTools/include
-INCLUDES += -I$(SFRAME_DIR)/SFrameTools
-INCLUDES += -I$(SFRAME_DIR)/SFrameTools/JetMETObjects/interface
-INCLUDES += -I$(SFRAME_DIR)/SFrameAnalysis/include
-INCLUDES += -I$(SFRAME_DIR)/SFrameAnalysis/
-INCLUDES += -I$(SFRAME_DIR)/core
-INCLUDES += -I$(SFRAME_DIR)/core/include
-
-# configure FastJet
-INCLUDES += -I$(FASTJETDIR)/include
+# configure fastjet include:
 INCLUDES += -I$(FASTJETDIR)/../include
 
 #INCLUDES += -I$(LHAPDFDIR)/include
 INCLUDES += -I/afs/cern.ch/sw/lcg/external/MCGenerators/lhapdf/5.8.8/x86_64-slc5-gcc46-opt/include
 
+# in case you need to link to an external library, use USERLDFLAGS, e.g. like that:
+#USERLDFLAGS += $(ROOTLIBS) -lMinuit
+
+# to pass additional compiler flags, set USERCXXFLAGS. Add debugging info here:
+USERCXXFLAGS := -g
 
 # Include the generic compilation rules
 include $(SFRAME_DIR)/Makefile.common
+

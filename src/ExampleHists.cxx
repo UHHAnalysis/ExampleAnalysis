@@ -1,5 +1,5 @@
 #include "include/ExampleHists.h"
-#include "include/EventCalc.h"
+#include "SFrameTools/include/EventCalc.h"
 #include <iostream>
 
 using namespace std;

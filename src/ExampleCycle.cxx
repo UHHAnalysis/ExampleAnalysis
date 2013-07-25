@@ -4,8 +4,11 @@
 
 using namespace std;
 
-// Local include(s):
 #include "include/ExampleCycle.h"
+#include "include/ExampleHists.h"
+
+#include "SFrameAnalysis/include/SelectionModules.h"
+#include "SFrameAnalysis/include/HypothesisHists.h"
 
 ClassImp( ExampleCycle );
 
