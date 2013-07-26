@@ -3,7 +3,7 @@
 
 <!-- <JobConfiguration JobName="ExampleCycleJob" OutputLevel="VERBOSE"> -->
 <JobConfiguration JobName="ExampleCycleJob" OutputLevel="INFO">
-
+    
 	<Library Name="libfastjet"/>
 	<Library Name="libfastjettools"/>
 	<Library Name="libSFramePlugIns"/>
@@ -12,38 +12,34 @@
 	<Library Name="libNtuple"/>
 	<Library Name="libExampleAnalysis"/>
 
-	<Package Name="SFrameCore.par" />
-	<Package Name="SFramePlugIns.par" />
-	<Package Name="Ntuple.par" />
-	<Package Name="SFrameTools.par" />
-	<Package Name="Analysis.par" />
 	<Package Name="ExampleAnalysis.par" />
 
-	<Cycle Name="ExampleCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/scratch/hh/lustre/cms/user/peiffer/PROOF/" OutputDirectory="./" PostFix="" TargetLumi="1" > 
-<!--	<Cycle Name="ExampleCycle" OutputDirectory="./" PostFix="" TargetLumi="1.0"> -->
+   <Cycle Name="ExampleCycle"  RunMode="PROOF" ProofServer="pod://jott@tcx121.naf.desy.de:21003"  ProofWorkDir="/scratch/hh/dust/naf/cms/user/jott/proof-wd" OutputDirectory="./" PostFix="" TargetLumi="1" > 
+   <!-- <Cycle Name="ExampleCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/scratch/hh/dust/naf/cms/user/jott/proof-wd" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
+   <!-- <Cycle Name="ExampleCycle" OutputDirectory="./" PostFix="" TargetLumi="1.0"> -->
 
 		<InputData Lumi="1.0" NEventsMax="-1" Type="DATA" Version="DATA" Cacheable="False">
-		        <In FileName="/scratch/hh/dust/naf/cms/user/peiffer/Analysis53X/SelectionMuon/ZprimeSelectionCycle.DATA.DATA.root" Lumi="0.0"/> 
+		        <In FileName="/scratch/hh/dust/naf/cms/user/peiffer/Analysis53X_v3/SelectionMuon/ZprimeSelectionCycle.DATA.DATA.root" Lumi="0.0"/> 
 			<InputTree Name="AnalysisTree" /> 
-		</InputData> 
+		    </InputData>
 
 		<InputData Lumi="92270" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
-		        <In FileName="/scratch/hh/dust/naf/cms/user/peiffer/Analysis53X/SelectionMuon/ZprimeSelectionCycle.MC.TTbar.root" Lumi="0.0"/> 
+		        <In FileName="/scratch/hh/dust/naf/cms/user/peiffer/Analysis53X_v3/SelectionMuon/ZprimeSelectionCycle.MC.TTbar.root" Lumi="0.0"/> 
 			<InputTree Name="AnalysisTree" /> 
 		</InputData> 
 
 		<UserConfig>
 
-		   <Item Name="JetCollection" Value="goodPatJetsPFlow" />  
-		   <Item Name="ElectronCollection" Value="selectedPatElectronsPFlowLoose" /> 
+		   <Item Name="JetCollection" Value="goodPatJetsPFlow" />
+		   <Item Name="ElectronCollection" Value="selectedPatElectronsPFlowLoose" />
 		   <Item Name="MuonCollection" Value="selectedPatMuonsPFlowLoose" /> 
-		   <Item Name="TauCollection" Value="selectedPatTausPFlow" /> 
+		   <Item Name="TauCollection" Value="selectedPatTausPFlow" />
+		   <Item Name="GenJetCollection" Value="ak5GenJetsNoNu" />
 <!--		   <Item Name="PhotonCollection" Value="patPhotons" /> -->
 		   <Item Name="PrimaryVertexCollection" Value="goodOfflinePrimaryVertices" /> 
 		   <Item Name="METName" Value="patMETsPFlow" />  
-		   <Item Name="TopJetCollection" Value="goodPatJetsCATopTagPF" />
+		   <Item Name="TopJetCollection" Value="goodPatJetsCATopTagPFPacked" />
 		   <Item Name="TopJetCollectionGen" Value="caTopTagGen" />
-		   <Item Name="PrunedJetCollection" Value="goodPatJetsCA8PrunedPF" />  
 		   <Item Name="GenParticleCollection" Value="GenParticles" /> 
 		      
 		      <Item Name="PU_Filename_MC" Value="/scratch/hh/dust/naf/cms/user/peiffer/Analysis53X/PileUpHistos/PileUpHistoCycle" />
