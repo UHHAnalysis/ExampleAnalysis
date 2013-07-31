@@ -10,9 +10,7 @@ ExampleHists::ExampleHists(const char* name) : BaseHists(name)
    
 }
 
-ExampleHists::~ExampleHists()
-{
-  // default destructor, does nothing
+ExampleHists::~ExampleHists(){
 }
 
 void ExampleHists::Init()
@@ -22,10 +20,15 @@ void ExampleHists::Init()
   // missing ET and HT
   double* logMET_bins = MakeLogBinning(40, 50, 1200);
   Book( TH1F( "MET_lx", "missing E_{T} [GeV]", 40, logMET_bins ) );
+  delete[] logMET_bins;
+  
   double* logHT_bins = MakeLogBinning(40, 150, 3000);
   Book( TH1F( "HT_lx", "H_{T} [GeV]", 40, logHT_bins ) );
+  delete[] logHT_bins;
+  
   double* logHTlep_bins = MakeLogBinning(40, 150, 1200);
   Book( TH1F( "HTlep_lx", "H_{T}^{lep} [GeV]", 40, logHTlep_bins ) );
+  delete[] logHTlep_bins;
 
   // jets
   Book( TH1F( "N_jets_ly", "N^{jets}", 20, 0, 20 ) );
@@ -37,6 +40,12 @@ void ExampleHists::Init()
   Book( TH1F( "pt_jet2_lx", "p_{T}^{jet 2} [GeV/c]", 40, logPtjet2_bins ) ); 
   Book( TH1F( "pt_jet3_lx", "p_{T}^{jet 3} [GeV/c]", 40, logPtjet3_bins ) );
   Book( TH1F( "pt_jet4_lx", "p_{T}^{jet 4} [GeV/c]", 40, logPtjet4_bins ) );
+  delete[] logPtjet1_bins;
+  delete[] logPtjet2_bins;
+  delete[] logPtjet3_bins;
+  delete[] logPtjet4_bins;
+  
+  
   Book( TH1F( "eta_jet1", "#eta^{jet 1}", 40, -2.5, 2.5) );
   Book( TH1F( "eta_jet2", "#eta^{jet 2}", 40, -2.5, 2.5) );
   Book( TH1F( "eta_jet3", "#eta^{jet 3}", 40, -2.5, 2.5) );
@@ -46,6 +55,8 @@ void ExampleHists::Init()
   Book( TH1F( "N_mu", "N^{#mu}", 10, 0, 10 ) );
   double* logPtlep_bins = MakeLogBinning(40, 45, 500);
   Book( TH1F( "pt_mu_lx", "p_{T}^{#mu} [GeV/c]", 40, logPtlep_bins ) );
+  delete[] logPtlep_bins;
+  
   Book( TH1F( "eta_mu", "#eta^{#mu}", 40, -2.1, 2.1) );
   Book( TH1F( "reliso_mu", "#mu rel. Iso", 40, 0, 0.5) );
 
