@@ -44,6 +44,8 @@ private:
   //
   // Put all your private variables here
   //
+  
+   Selection* BSel, * NoBSel, *TopSel, *chi2_selection;
 
   // Macro adding the functions for dictionary generation
   ClassDef( ExampleCycle, 0 );

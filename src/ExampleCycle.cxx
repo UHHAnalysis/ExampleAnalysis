@@ -54,31 +54,36 @@ void ExampleCycle::EndCycle() throw( SError )
 
 void ExampleCycle::BeginInputData( const SInputData& id ) throw( SError ) 
 {
-  // declaration of histograms and selections
+  // declaration of histograms and selections.
+  // AnalysisCyle expects Selections and HistCollections to be registered here.
+  // Their memory will be released in AnalysisCycle::EndInputData.
 
   // Important: first call BeginInputData of base class
   AnalysisCycle::BeginInputData( id );
 
   // -------------------- set up the selections ---------------------------
 
-  Selection* BSel = new Selection( "BSelection");
+  BSel = new Selection( "BSelection");
+  // addSelectionModule transfers memory release responsibility to the Selection instance.
   BSel->addSelectionModule(new NBTagSelection(1)); //at least one b tag
 
-  Selection* NoBSel = new Selection( "NoBSelection");
+  NoBSel = new Selection( "NoBSelection");
   NoBSel->addSelectionModule(new NBTagSelection(0,0)); //no b tags
 
-  Selection* chi2_selection= new Selection("chi2_selection");
-  static Chi2Discriminator* m_chi2discr = new Chi2Discriminator();
+  chi2_selection= new Selection("chi2_selection");
+  Chi2Discriminator* m_chi2discr = new Chi2Discriminator();
   chi2_selection->addSelectionModule(new HypothesisDiscriminatorCut( m_chi2discr, -1*double_infinity(), 10));
   //chi2_selection->addSelectionModule(new MttbarGenCut(0,700));
 
-  Selection* TopSel = new Selection("TopSelection");
+  TopSel = new Selection("TopSelection");
   //DO NOT use trigger selection in PROOF mode at the moment
   //TopSel->addSelectionModule(new TriggerSelection("HLT_PFJet320_v"));
   TopSel->addSelectionModule(new NTopJetSelection(1,int_infinity(),350,2.5));
   TopSel->addSelectionModule(new NTopTagSelection(1,int_infinity()));
 
 
+  // RegisterSelection transfers memory release responsibility the Selection instance to AnalysisCycle
+  // (will be done in EndInputData)
   RegisterSelection(BSel);
   RegisterSelection(NoBSel);
   RegisterSelection(TopSel);
@@ -103,15 +108,11 @@ void ExampleCycle::BeginInputData( const SInputData& id ) throw( SError )
   // important: initialise histogram collections after their definition
   InitHistos();
 
-  return;
-
 }
 
 void ExampleCycle::EndInputData( const SInputData& id ) throw( SError ) 
 {
   AnalysisCycle::EndInputData( id );
-  return;
-
 }
 
 void ExampleCycle::BeginInputFile( const SInputData& id ) throw( SError ) 
@@ -121,9 +122,6 @@ void ExampleCycle::BeginInputFile( const SInputData& id ) throw( SError )
 
   // important: call to base function to connect all variables to Ntuples from the input tree
   AnalysisCycle::BeginInputFile( id );
-
-  return;
-
 }
 
 void ExampleCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError ) 
@@ -135,13 +133,9 @@ void ExampleCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( S
   // also, the good-run selection is performed there and the calculator is reset
   AnalysisCycle::ExecuteEvent( id, weight );
 
-  // get the selections
-  static Selection* BSel = GetSelection("BSelection");
-  static Selection* NoBSel = GetSelection("NoBSelection");
-  static Selection* TopSel = GetSelection("TopSelection");
-  static Selection* chi2_selection = GetSelection("chi2_selection");
-
-  // get the histogram collections
+  // get the histogram collections. NOTE: this could be done more performant by making
+  // all thse BaseHists* vairables private member variables of ExampleCycle and
+  // setting them in BeginInputData. Then, there is no need here to call GetHistColletion ...
   BaseHists* HistsNoCuts = GetHistCollection("NoCuts");
   BaseHists* HistsBTag = GetHistCollection("BTag");
   BaseHists* HistsNoBTag = GetHistCollection("NoBTag");
