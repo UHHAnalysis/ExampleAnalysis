@@ -10,11 +10,12 @@
 	<Library Name="libSFrameTools"/>
 	<Library Name="libAnalysis"/>
 	<Library Name="libNtuple"/>
+	<Library Name="libJetMETObjects"/>
 	<Library Name="libExampleAnalysis"/>
 
 	<Package Name="ExampleAnalysis.par" />
 
-   <Cycle Name="ExampleCycle"  RunMode="PROOF" ProofServer="pod://jott@tcx121.naf.desy.de:21003"  ProofWorkDir="/scratch/hh/dust/naf/cms/user/jott/proof-wd" OutputDirectory="./" PostFix="" TargetLumi="1" > 
+   <Cycle Name="ExampleCycle" OutputDirectory="./" PostFix="" TargetLumi="1" > 
    <!-- <Cycle Name="ExampleCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/scratch/hh/dust/naf/cms/user/jott/proof-wd" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
    <!-- <Cycle Name="ExampleCycle" OutputDirectory="./" PostFix="" TargetLumi="1.0"> -->
 
@@ -26,7 +27,7 @@
 		<InputData Lumi="92270" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
 		        <In FileName="/scratch/hh/dust/naf/cms/user/peiffer/Analysis53X_v3/SelectionMuon/ZprimeSelectionCycle.MC.TTbar.root" Lumi="0.0"/> 
 			<InputTree Name="AnalysisTree" /> 
-		</InputData> 
+		    </InputData>
 
 		<UserConfig>
 
@@ -49,6 +50,17 @@
 
 		      <Item Name="writeTTbarReco" Value="True" />  
 		      <Item Name="readTTbarReco" Value="True" /> 
+		      
+		   
+		   <!-- to apply jet energy (re-)corrections (esp. updated ones since the gridding), use these lines: -->
+		   <Item Name="JECFileLocation" Value="/scratch/hh/dust/naf/cms/user/peiffer/CMSSW_5_3_10/src" />
+		   <Item Name="JECDataGlobalTag" Value="FT_53_V21_AN6" />
+		   <Item Name="JECMCGlobalTag" Value="START53_V27" />
+		   <Item Name="JECJetCollection" Value="AK5PFchs" />
+		   
+		   <!-- this would perform systematic variations of the jet energy corrections in the down direction:
+		   <Item Name="SystematicUncertainty" Value="JEC" />
+		   <Item Name="SystematicVariation" Value="down" /> -->
 
 		   <Item Name="LumiFilePath" Value="/scratch/hh/dust/naf/cms/user/peiffer/Analysis53X/LumiFiles/" /> 
 		   <Item Name="LumiFileName" Value="Mu40_206745.root" /> 
