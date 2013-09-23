@@ -15,7 +15,7 @@ INCLUDES += -I/afs/cern.ch/sw/lcg/external/MCGenerators/lhapdf/5.8.8/x86_64-slc5
 #USERLDFLAGS += $(ROOTLIBS) -lMinuit
 
 # to pass additional compiler flags, set USERCXXFLAGS. Add debugging info here:
-USERCXXFLAGS := -g
+USERCXXFLAGS := -g -std=c++0x
 
 # Include the generic compilation rules
 include $(SFRAME_DIR)/Makefile.common
