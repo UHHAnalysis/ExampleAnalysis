@@ -20,18 +20,18 @@ void ExampleCycleNew::begin_dataset(Context & ctx){
     // b selection:
     unique_ptr<AndSelection> sel(new AndSelection(BSelection));
     sel->add(make_unique<NBTagSelection>(1)); //at least one b tag
-    selection_modules.emplace_back(move(sel));
+    selection_modules.push_back(move(sel));
 
     // no b selection:
     sel.reset(new AndSelection(NoBSelection));
     sel->add(make_unique<NBTagSelection>(0,0)); //no b tags
-    selection_modules.emplace_back(move(sel));
+    selection_modules.push_back(move(sel));
 
     // top selection:
     sel.reset(new AndSelection(TopSelection));
     sel->add(make_unique<NTopJetSelection>(1,int_infinity(),350,2.5));
     sel->add(make_unique<NTopTagSelection>(1,int_infinity()));
-    selection_modules.emplace_back(move(sel));
+    selection_modules.push_back(move(sel));
 
     // 2. Set up Histograms:
     h_nocuts.reset(new ExampleHistsNew(ctx, "NoCuts"));
@@ -46,6 +46,8 @@ void ExampleCycleNew::begin_dataset(Context & ctx){
     
     // 4. output
     // 4.a. define some more output in the event tree:
+    event_intdata = 7;
+    event_jetdata.set_pt(16);
     ctx.declare_event_output("event_intdata", event_intdata);
     ctx.declare_event_output("event_jetdata", event_jetdata);
     
@@ -53,6 +55,14 @@ void ExampleCycleNew::begin_dataset(Context & ctx){
     // (Note that you have to declare Tree2 as MetadataOutputTree in the xml config to make this work)
     ctx.declare_output("Tree2", "jet", tree2_jet);
     ctx.declare_output("Tree2", "double", tree2_double);
+    
+    // 5. additional input: read in event data written in 4. Note that this will only succeed if running
+    // this cycle on an output file containing these branches, e.g. one previously produced with ExampleCycleNew ...
+    read_example_data = string2bool(ctx.get_setting("readExampleData"));
+    if(read_example_data){
+        ctx.declare_event_input("event_intdata", event_intdata_in);
+        ctx.declare_event_input("event_jetdata", event_jetdata_in);
+    }
 }
 
 
@@ -80,11 +90,16 @@ void ExampleCycleNew::process(EventCalc & event, Context & ctx) {
         h_topsel->fill(event);
     }
     
+    // 3. firther procerssing, e.g. write something to stdout for debugging:
+    if(read_example_data){
+        cout << "Example data read: int = " << event_intdata_in << "; jet pt = " << event_jetdata_in.pt() << endl;
+    }
+    
     // Output:
     // a. event tree output:
     // Which events are written to the event output tree is controlled by the OutputSelection setting in the xml file.
-    event_intdata = 7;
-    event_jetdata.set_pt(16);
+    ++event_intdata;
+    event_jetdata.set_pt(event_jetdata.pt() + 1);
     
     // the non-event output tree has to be filled by hand; we can fill in more than one entry per event:
     ID(Tree2);

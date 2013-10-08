@@ -29,6 +29,10 @@ private:
     // example for additional TTrees in the output:
     double tree2_double;
     Jet tree2_jet;
+    
+    bool read_example_data;
+    int event_intdata_in;
+    Jet event_jetdata_in;
 };
 
 #endif

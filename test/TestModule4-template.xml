@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE JobConfiguration PUBLIC "" "../config/JobConfig.dtd">
+
+<!-- test 0 just tests configuration; while some input is read, no tree output is written. -->
+
+<JobConfiguration JobName="TestJob" OutputLevel="WARNING">
+    <Library Name="libfastjet"/>
+    <Library Name="libfastjettools"/>
+    <Library Name="libSFrameTools"/>
+    <Library Name="libAnalysis"/>
+    <Library Name="libNtuple"/>
+    <Library Name="libExampleAnalysis"/>
+    <Package Name="ExampleAnalysis.par" />
+
+    <Cycle Name="AnalysisModuleRunner" OutputDirectory="./out4/" PostFix="" TargetLumi="1" >
+        
+        <InputData Lumi="92270" NEventsMax="100" Type="MC" Version="TTbar" Cacheable="False">
+            <In FileName="dcap://dcache-cms-dcap.desy.de:22125/pnfs/desy.de/cms/tier2/store/user/peiffer/SFrame_Ntuples_53X_ttbsm_v3/TT_powheg/TT_CT10_TuneZ2star_8TeV-powheg-tauola_1_Ntuple.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" />
+            <MetadataOutputTree Name="tree2" />
+        </InputData>
+
+        <UserConfig>
+            <!-- IO settings for AnalysisModuleRunner: -->
+            <Item Name="readCommonInfo" Value="False" />
+            
+            <Item Name="AnalysisModule" Value="TestModule" /> 
+            
+            <Item Name="test" Value="4" />
+        </UserConfig>
+    </Cycle>
+</JobConfiguration>
