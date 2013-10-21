@@ -43,7 +43,6 @@
 		   <Item Name="AnalysisModule" Value="ExampleCycleNew" /> 
                    
                    <!-- set this to the name of an AndSelection to control what is written to the output. If not given, *all* events are written to the output tree. -->
-                   <Item Name="OutputSelection" Value="all" /> 
                    
                    
                 </UserConfig>

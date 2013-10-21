@@ -2,7 +2,6 @@
 #define ExampleCycleNew_H
 
 #include "SFrameTools/include/AnalysisModule.h"
-
 #include <memory>
 
 /**
@@ -17,10 +16,10 @@ public:
 private:
    
     // declare a vector for storing all modules doing some work with EventCalc:
-    std::vector<std::unique_ptr<AndSelection>> selection_modules;
+    boost::ptr_vector<AndSelection> selection_modules;
     
     // store the Hists collection as member variables for now:
-    std::unique_ptr<Hists> h_nocuts, h_btag, h_nobtag, h_topsel;
+    std::auto_ptr<Hists> h_nocuts, h_btag, h_nobtag, h_topsel;
     
     // demonstrate how to write additional data to the output event tree:
     int event_intdata;

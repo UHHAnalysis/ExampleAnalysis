@@ -1,5 +1,6 @@
 #include "include/ExampleHistsNew.h"
 #include "SFrameTools/include/EventCalc.h"
+#include "SFrameTools/include/identifier.h"
 #include <iostream>
 
 using namespace std;
@@ -8,47 +9,47 @@ ExampleHistsNew::ExampleHistsNew(Context & ctx, const string & dirname): Hists(c
   // book all histograms here
 
   // missing ET and HT
-  unique_ptr<double[]> bins = log_binning(40, 50, 1200);
-  book<TH1F>("MET_lx", "missing E_{T} [GeV]", 40, bins.get());
+  boost::shared_array<double> bins = log_binning(40, 50, 1200);
+  book("MET_lx", new TH1F("MET_lx", "missing E_{T} [GeV]", 40, bins.get()));
   
-  bins = log_binning(40, 150, 3000);
-  book<TH1F>("HT_lx", "H_{T} [GeV]", 40, bins.get());
+  bins = log_binning(40, 150, 3000); // this will destroy the old contents of bins ...
+  book("HT_lx", new TH1F("HT_lx", "H_{T} [GeV]", 40, bins.get()));
   
   bins = log_binning(40, 150, 1200);
-  book<TH1F>( "HTlep_lx", "H_{T}^{lep} [GeV]", 40, bins.get());
+  book("HTlep_lx", new TH1F( "HTlep_lx", "H_{T}^{lep} [GeV]", 40, bins.get()));
 
   // jets
-  book<TH1F>( "N_jets_ly", "N^{jets}", 20, 0, 20 );
+  book("N_jets_ly", new TH1F( "N_jets_ly", "N^{jets}", 20, 0, 20 ));
   
   bins = log_binning(40, 150, 1500);
-  book<TH1F>( "pt_jet1_lx", "p_{T}^{jet 1} [GeV/c]", 40, bins.get());
+  book("pt_jet1_lx", new TH1F( "pt_jet1_lx", "p_{T}^{jet 1} [GeV/c]", 40, bins.get()));
   bins = log_binning(40, 50, 1000);
-  book<TH1F>( "pt_jet2_lx", "p_{T}^{jet 2} [GeV/c]", 40, bins.get()); 
+  book("pt_jet2_lx", new TH1F( "pt_jet2_lx", "p_{T}^{jet 2} [GeV/c]", 40, bins.get()));
   bins = log_binning(40, 50, 500);
-  book<TH1F>( "pt_jet3_lx", "p_{T}^{jet 3} [GeV/c]", 40, bins.get());
+  book("pt_jet3_lx", new TH1F( "pt_jet3_lx", "p_{T}^{jet 3} [GeV/c]", 40, bins.get()));
   bins = log_binning(40, 50, 250);
-  book<TH1F>( "pt_jet4_lx", "p_{T}^{jet 4} [GeV/c]", 40, bins.get());
+  book("pt_jet4_lx", new TH1F( "pt_jet4_lx", "p_{T}^{jet 4} [GeV/c]", 40, bins.get()));
   
   
-  book<TH1F>( "eta_jet1", "#eta^{jet 1}", 40, -2.5, 2.5);
-  book<TH1F>( "eta_jet2", "#eta^{jet 2}", 40, -2.5, 2.5);
-  book<TH1F>( "eta_jet3", "#eta^{jet 3}", 40, -2.5, 2.5);
-  book<TH1F>( "eta_jet4", "#eta^{jet 4}", 40, -2.5, 2.5);
+  book("eta_jet1", new TH1F( "eta_jet1", "#eta^{jet 1}", 40, -2.5, 2.5));
+  book("eta_jet2", new TH1F( "eta_jet2", "#eta^{jet 2}", 40, -2.5, 2.5));
+  book("eta_jet3", new TH1F( "eta_jet3", "#eta^{jet 3}", 40, -2.5, 2.5));
+  book("eta_jet4", new TH1F( "eta_jet4", "#eta^{jet 4}", 40, -2.5, 2.5));
 
   // leptons
-  book<TH1F>( "N_mu", "N^{#mu}", 10, 0, 10 );
+  book("N_mu", new TH1F( "N_mu", "N^{#mu}", 10, 0, 10 ));
   
   bins = log_binning(40, 45, 500);
-  book<TH1F>( "pt_mu_lx", "p_{T}^{#mu} [GeV/c]", 40, bins.get());
+  book("pt_mu_lx", new TH1F( "pt_mu_lx", "p_{T}^{#mu} [GeV/c]", 40, bins.get()));
   
-  book<TH1F>( "eta_mu", "#eta^{#mu}", 40, -2.1, 2.1);
-  book<TH1F>( "reliso_mu", "#mu rel. Iso", 40, 0, 0.5);
+  book("eta_mu", new TH1F( "eta_mu", "#eta^{#mu}", 40, -2.1, 2.1));
+  book("reliso_mu", new TH1F( "reliso_mu", "#mu rel. Iso", 40, 0, 0.5));
 
 
   // primary vertices
-  book<TH1F>( "N_pv", "N^{PV}", 50, 0, 50 );
-  book<TH1F>( "N_events_perLumiBin", "N^{evt}", 24, 0, 24 );
-  book<TH1F>( "N_pv_perLumiBin", "N^{PV}", 24, 0, 24 );
+  book("N_pv", new TH1F( "N_pv", "N^{PV}", 50, 0, 50 ));
+  book("N_events_perLumiBin", new TH1F( "N_events_perLumiBin", "N^{evt}", 24, 0, 24 ));
+  book("N_pv_perLumiBin", new TH1F( "N_pv_perLumiBin", "N^{PV}", 24, 0, 24 ));
 }
 
 

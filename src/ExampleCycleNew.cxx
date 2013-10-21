@@ -18,20 +18,30 @@ void ExampleCycleNew::begin_dataset(Context & ctx){
     // 1. set up selections:
     
     // b selection:
-    unique_ptr<AndSelection> sel(new AndSelection(BSelection));
-    sel->add(make_unique<NBTagSelection>(1)); //at least one b tag
-    selection_modules.push_back(move(sel));
-
+    auto_ptr<AndSelection> sel(new AndSelection(BSelection));
+    auto_ptr<SelectionModule> gtr1b(new NBTagSelection(1));  //at least one b tag
+    sel->add(gtr1b);
+    // note that the object has been moved to sel
+    assert(gtr1b.get()==0);
+    selection_modules.push_back(sel.release());
+    // also, sel has been moved to selection_modules:
+    assert(sel.get()==0);
+    
+    // as 'sel' is empty now, re-cycle it for the next AndSelection:
+    
     // no b selection:
     sel.reset(new AndSelection(NoBSelection));
-    sel->add(make_unique<NBTagSelection>(0,0)); //no b tags
-    selection_modules.push_back(move(sel));
+    auto_ptr<SelectionModule> no_b(new NBTagSelection(0,0)); //no b tags
+    sel->add(no_b);
+    selection_modules.push_back(sel.release());
 
     // top selection:
     sel.reset(new AndSelection(TopSelection));
-    sel->add(make_unique<NTopJetSelection>(1,int_infinity(),350,2.5));
-    sel->add(make_unique<NTopTagSelection>(1,int_infinity()));
-    selection_modules.push_back(move(sel));
+    auto_ptr<SelectionModule> ntopjets_gtr_1(new NTopJetSelection(1,int_infinity(),350,2.5));
+    auto_ptr<SelectionModule> ntoptags_gtr_1(new NTopTagSelection(1,int_infinity()));
+    sel->add(ntopjets_gtr_1);
+    sel->add(ntoptags_gtr_1);
+    selection_modules.push_back(sel.release());
 
     // 2. Set up Histograms:
     h_nocuts.reset(new ExampleHistsNew(ctx, "NoCuts"));
@@ -40,8 +50,8 @@ void ExampleCycleNew::begin_dataset(Context & ctx){
     h_topsel.reset(new ExampleHistsNew(ctx, "TopSel"));
 
     //3. initialise all AnalysisModules, i.e. all Selections:
-    for(auto & m : selection_modules){
-        m->begin_dataset(ctx);
+    for(size_t i=0; i<selection_modules.size(); ++i){
+        selection_modules[i].begin_dataset(ctx);
     }
     
     // 4. output
@@ -73,8 +83,8 @@ void ExampleCycleNew::process(EventCalc & event, Context & ctx) {
     // 1. determine the outcome of the selections by running the selection modules.
     // The AndSelection modules write the outcome of the selection cut to the event, so
     // run this before testing which selection was passed.
-    for(auto & m : selection_modules){
-        m->process(event, ctx);
+    for(size_t i=0; i<selection_modules.size(); ++i){
+        selection_modules[i].process(event, ctx);
     }
 
     // 2. read the selection results and fill the corresponding histograms:
