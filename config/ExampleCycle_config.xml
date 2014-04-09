@@ -20,12 +20,12 @@
    <!-- <Cycle Name="ExampleCycle" OutputDirectory="./" PostFix="" TargetLumi="1.0"> -->
 
 		<InputData Lumi="1.0" NEventsMax="-1" Type="DATA" Version="DATA" Cacheable="False">
-		        <In FileName="/scratch/hh/dust/naf/cms/user/peiffer/Analysis53X_v3/SelectionMuon/ZprimeSelectionCycle.DATA.DATA.root" Lumi="0.0"/> 
+		        <In FileName="/nfs/dust/cms/user/peiffer/Analysis53X_v3/SelectionMuon/ZprimeSelectionCycle.DATA.DATA.root" Lumi="0.0"/> 
 			<InputTree Name="AnalysisTree" /> 
 		    </InputData>
 
 		<InputData Lumi="92270" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
-		        <In FileName="/scratch/hh/dust/naf/cms/user/peiffer/Analysis53X_v3/SelectionMuon/ZprimeSelectionCycle.MC.TTbar.root" Lumi="0.0"/> 
+		        <In FileName="/nfs/dust/cms/user/peiffer/Analysis53X_v3/SelectionMuon/ZprimeSelectionCycle.MC.TTbar.root" Lumi="0.0"/> 
 			<InputTree Name="AnalysisTree" /> 
 		    </InputData>
 
@@ -43,8 +43,8 @@
 		   <Item Name="TopJetCollectionGen" Value="caTopTagGen" />
 		   <Item Name="GenParticleCollection" Value="GenParticles" /> 
 		      
-		      <Item Name="PU_Filename_MC" Value="/scratch/hh/dust/naf/cms/user/peiffer/Analysis53X/PileUpHistos/PileUpHistoCycle" />
-		      <Item Name="PU_Filename_Data" Value="/scratch/hh/dust/naf/cms/user/peiffer/Analysis53X/PileUpHistos/MyDataPileupHistogram_206745.root" />
+		      <Item Name="PU_Filename_MC" Value="/nfs/dust/cms/user/peiffer/Analysis53X/PileUpHistos/PileUpHistoCycle" />
+		      <Item Name="PU_Filename_Data" Value="/nfs/dust/cms/user/peiffer/Analysis53X/PileUpHistos/MyDataPileupHistogram_206745.root" />
 		      <Item Name="PU_Histname_Data" Value="pileup" />
 		      <Item Name="PU_Histname_MC" Value="N_pileup_hist" />
 
@@ -53,7 +53,7 @@
 		      
 		   
 		   <!-- to apply jet energy (re-)corrections (esp. updated ones since the gridding), use these lines: -->
-		   <Item Name="JECFileLocation" Value="/scratch/hh/dust/naf/cms/user/peiffer/CMSSW_5_3_10/src" />
+		   <Item Name="JECFileLocation" Value="/nfs/dust/cms/user/peiffer/CMSSW_5_3_10/src" />
 		   <Item Name="JECDataGlobalTag" Value="FT_53_V21_AN6" />
 		   <Item Name="JECMCGlobalTag" Value="START53_V27" />
 		   <Item Name="JECJetCollection" Value="AK5PFchs" />
@@ -62,13 +62,13 @@
 		   <Item Name="SystematicUncertainty" Value="JEC" />
 		   <Item Name="SystematicVariation" Value="down" /> -->
 
-		   <Item Name="LumiFilePath" Value="/scratch/hh/dust/naf/cms/user/peiffer/Analysis53X/LumiFiles/" /> 
+		   <Item Name="LumiFilePath" Value="/nfs/dust/cms/user/peiffer/Analysis53X/LumiFiles/" /> 
 		   <Item Name="LumiFileName" Value="Mu40_206745.root" /> 
 		   <Item Name="LumiTrigger" Value="HLT_Mu40_eta2p1_v" /> 
 
 		   <Item Name="BTaggingScaleFactors" Value="true" />
 
-		    <Item Name="LeptonScaleFactors" Value="MuonRunA 1051.4 MuonRunB 4778 MuonRunC 11946" /> 
+		    <Item Name="LeptonScaleFactors" Value="MuonRunABCD 1." /> 
 		      
                 </UserConfig>
 	</Cycle>
